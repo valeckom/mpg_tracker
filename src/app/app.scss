@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +12,38 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.toolbar-title-md {
+  padding: 0.621em;
+  background-color: map-get($colors, title-background);
+  text-align: center;
+  color: black;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.content {
+  background-color: map-get($colors, main-background);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: inherit;
+}
+
+section {
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  padding: 0.621em;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 1px 3px 6px rgba(0,0,0,0.16);
+}
+// B = A * 1.61
+// A = B / 1.61
+// .386, .621, 1, 1.61, 2.59
