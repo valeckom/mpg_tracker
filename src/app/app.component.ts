@@ -23,7 +23,7 @@ export class MyApp {
       this.androidFullScreen.isImmersiveModeSupported()
         .catch(err => console.log(err));
 
-      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE)
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
         .catch(err => console.log(err));
 
       splashScreen.hide();
