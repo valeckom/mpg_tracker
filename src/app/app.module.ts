@@ -8,6 +8,7 @@ import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+
 @NgModule({
   declarations: [
     MyApp,
