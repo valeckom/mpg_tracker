@@ -8,6 +8,10 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+<<<<<<< HEAD
+=======
+import {FIREBASE_CONFIG} from './firebase.credentials';
+>>>>>>> 1ac97b6bb898ca80caa8a20c89c47c895470e1e8
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
