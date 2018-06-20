@@ -58,32 +58,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var HomePage = /** @class */ (function () {
     function HomePage(navCtrl) {
         this.navCtrl = navCtrl;
-        this.myPerson = {};
+        this.fill = {};
+        this.fillRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database()
+            .ref("/fillUp/");
     }
+    HomePage.prototype.init = function (odometer, priceGallon, totalGallon) {
+        this.fillRef.set({
+            odometer: odometer,
+            priceGallon: priceGallon,
+            totalGallon: totalGallon
+        });
+    };
     HomePage.prototype.ionViewDidLoad = function () {
         var _this = this;
-        var personRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref("/person1/");
-        personRef.on('value', function (personSnapshot) {
-            _this.myPerson = personSnapshot.val();
+        this.fillRef.on('value', function (fillSnapshot) {
+            _this.fill = fillSnapshot.val();
+            if (_this.fill == null) {
+                _this.fill = {
+                    odometer: 0,
+                    priceGallon: 0,
+                    totalGallon: 0
+                };
+            }
         });
     };
-    HomePage.prototype.createPerson = function (firstName, lastName) {
-        var personRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref("/person1/");
-        personRef.set({
-            firstName: firstName,
-            lastName: lastName
-        });
-    };
-    HomePage.prototype.updatePerson = function (firstName, lastName) {
-        var personRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref("/person1/");
-        personRef.update({
-            firstName: firstName,
-            lastName: lastName
+    HomePage.prototype.logFillUp = function (odometer, priceGallon, totalGallon) {
+        this.fillRef.update({
+            odometer: odometer,
+            priceGallon: priceGallon,
+            totalGallon: totalGallon
         });
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/home/mark/project/mv_app/src/pages/home/home.html"*/'<ion-content>\n  <ion-title>\n    <h1>Save a Fill Up</h1>\n  </ion-title>\n\n  <p>\n    The person\'s name is {{ myPerson.firstName }} {{ myPerson.lastName }}\n  </p>\n\n  <ion-list>\n    <ion-item>\n      <ion-label fixed>First Name</ion-label>\n      <ion-input type="text" [(ngModel)]="firstName"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label fixed>Last Name</ion-label>\n      <ion-input type="text" [(ngModel)]="lastName"></ion-input>\n    </ion-item>\n  </ion-list>\n\n  <button ion-button block (click)="updatePerson(firstName, lastName)">\n    Update Name\n  </button>\n\n  <section>\n    <h4>\n      Average MPG:\n    </h4>\n    <h4>\n      Total Cost (30days): $\n    </h4>\n  </section>\n\n  <section>\n    <h4>\n    TODO -> Odometer\n    </h4>\n  </section>\n\n  <section>\n    <h4>\n    TODO -> price per gallon\n    </h4>\n  </section>\n\n  <section>\n    <h4>\n    TODO -> gallon pumped\n      </h4>\n  </section>\n\n  <section class="button-save-inactive">\n    <h1>\n      Save\n    </h1>\n  </section>\n\n  <div class="confirmation">\n    <h1>Saved <ion-icon name="checkmark"></ion-icon></h1>\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/home/mark/project/mv_app/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/home/mark/project/mv_app/src/pages/home/home.html"*/'<ion-content>\n  <ion-title>\n    <h1>Save a Fill Up</h1>\n  </ion-title>\n\n  <section>\n    <h5>\n      Average MPG: {{ fill.odometer }}\n    </h5>\n    <h5>\n      Total Cost (30days): ${{ fill.priceGallon }}\n    </h5>\n  </section>\n\n  <section>\n    <ion-list>\n\n      <ion-item>\n        <ion-label fixed>Odometer</ion-label>\n        <ion-input type="number" [(ngModel)]="odometer"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label fixed>$/gal</ion-label>\n        <ion-input type="number" [(ngModel)]="priceGallon"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label fixed>Total Gallons</ion-label>\n        <ion-input type="number" [(ngModel)]="totalGallon"></ion-input>\n      </ion-item>\n\n    </ion-list>\n  </section>\n\n  <section>\n    <button ion-button block (click)="logFillUp(odometer, priceGallon, totalGallon)">\n      Save\n    </button>\n  </section>\n\n  <div class="confirmation">\n    <h1>Saved <ion-icon name="checkmark"></ion-icon></h1>\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/home/mark/project/mv_app/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object])
     ], HomePage);

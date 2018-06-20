@@ -3,57 +3,40 @@
     <h1>Save a Fill Up</h1>
   </ion-title>
 
-  <p>
-    The person's name is {{ myPerson.firstName }} {{ myPerson.lastName }}
-  </p>
-
-  <ion-list>
-    <ion-item>
-      <ion-label fixed>First Name</ion-label>
-      <ion-input type="text" [(ngModel)]="firstName"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label fixed>Last Name</ion-label>
-      <ion-input type="text" [(ngModel)]="lastName"></ion-input>
-    </ion-item>
-  </ion-list>
-
-  <button ion-button block (click)="updatePerson(firstName, lastName)">
-    Update Name
-  </button>
-
   <section>
-    <h4>
-      Average MPG:
-    </h4>
-    <h4>
-      Total Cost (30days): $
-    </h4>
+    <h5>
+      Average MPG: {{ fill.odometer }}
+    </h5>
+    <h5>
+      Total Cost (30days): ${{ fill.priceGallon }}
+    </h5>
   </section>
 
   <section>
-    <h4>
-    TODO -> Odometer
-    </h4>
+    <ion-list>
+
+      <ion-item>
+        <ion-label fixed>Odometer</ion-label>
+        <ion-input type="number" [(ngModel)]="odometer"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>$/gal</ion-label>
+        <ion-input type="number" [(ngModel)]="priceGallon"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Total Gallons</ion-label>
+        <ion-input type="number" [(ngModel)]="totalGallon"></ion-input>
+      </ion-item>
+
+    </ion-list>
   </section>
 
   <section>
-    <h4>
-    TODO -> price per gallon
-    </h4>
-  </section>
-
-  <section>
-    <h4>
-    TODO -> gallon pumped
-      </h4>
-  </section>
-
-  <section class="button-save-inactive">
-    <h1>
+    <button ion-button block (click)="logFillUp(odometer, priceGallon, totalGallon)">
       Save
-    </h1>
+    </button>
   </section>
 
   <div class="confirmation">

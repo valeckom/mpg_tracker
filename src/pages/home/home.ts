@@ -8,31 +8,39 @@ import firebase from 'firebase';
 })
 export class HomePage {
 
-  public myPerson = {};
+  public fill = {};
+
+  private fillRef: firebase.database.Reference = firebase.database()
+    .ref(`/fillUp/`);
 
   constructor(public navCtrl: NavController) { }
 
+  init(odometer: number, priceGallon: number, totalGallon: number): void {
+    this.fillRef.set({
+      odometer,
+      priceGallon,
+      totalGallon
+    })
+  }
+
   ionViewDidLoad() {
-    const personRef: firebase.database.Reference = firebase.database().ref(`/person1/`);
-    personRef.on('value', personSnapshot => {
-      this.myPerson = personSnapshot.val();
+    this.fillRef.on('value', fillSnapshot => {
+      this.fill = fillSnapshot.val()
+      if (this.fill == null) {
+        this.fill = {
+          odometer: 0,
+          priceGallon: 0,
+          totalGallon: 0
+        }
+      }
     });
   }
 
-  createPerson(firstName: string, lastName: string): void {
-    const personRef: firebase.database.Reference = firebase.database().ref(`/person1/`);
-    personRef.set({
-      firstName,
-      lastName
+  logFillUp(odometer: number, priceGallon: number, totalGallon: number): void {
+    this.fillRef.update({
+      odometer,
+      priceGallon,
+      totalGallon
     })
   }
-
-  updatePerson(firstName: string, lastName: string): void {
-    const personRef: firebase.database.Reference = firebase.database().ref(`/person1/`);
-    personRef.update({
-      firstName,
-      lastName
-    })
-  }
-
 }
