@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import firebase from 'firebase';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';

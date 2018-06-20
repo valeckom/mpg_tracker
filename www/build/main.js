@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 109:
+/***/ 110:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -13,11 +13,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 109;
+webpackEmptyAsyncContext.id = 110;
 
 /***/ }),
 
-/***/ 150:
+/***/ 151:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -30,17 +30,19 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 150;
+webpackEmptyAsyncContext.id = 151;
 
 /***/ }),
 
-/***/ 195:
+/***/ 198:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -56,32 +58,50 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var HomePage = /** @class */ (function () {
     function HomePage(navCtrl) {
         this.navCtrl = navCtrl;
+        this.myPerson = {};
     }
-    HomePage_1 = HomePage;
-    HomePage = HomePage_1 = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [HomePage_1]
-        }),
+    HomePage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        var personRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref("/person1/");
+        personRef.on('value', function (personSnapshot) {
+            _this.myPerson = personSnapshot.val();
+        });
+    };
+    HomePage.prototype.createPerson = function (firstName, lastName) {
+        var personRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref("/person1/");
+        personRef.set({
+            firstName: firstName,
+            lastName: lastName
+        });
+    };
+    HomePage.prototype.updatePerson = function (firstName, lastName) {
+        var personRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref("/person1/");
+        personRef.update({
+            firstName: firstName,
+            lastName: lastName
+        });
+    };
+    HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/home/mark/project/mv_app/src/pages/home/home.html"*/'<ion-content>\n  <ion-title>\n    <h1>Save a Fill Up</h1>\n  </ion-title>\n\n  <section>\n    <h4>\n      Average MPG:\n    </h4>\n    <h4>\n      Total Cost (30days): $\n    </h4>\n  </section>\n\n  <section>\n    <h4>\n    TODO -> Odometer\n    </h4>\n  </section>\n\n  <section>\n    <h4>\n    TODO -> price per gallon\n    </h4>\n  </section>\n\n  <section>\n    <h4>\n    TODO -> gallon pumped\n      </h4>\n  </section>\n\n  <section class="button-save-inactive">\n    <h1>\n      Save\n    </h1>\n  </section>\n\n  <div class="confirmation">\n    <h1>Saved <ion-icon name="checkmark"></ion-icon></h1>\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/home/mark/project/mv_app/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/home/mark/project/mv_app/src/pages/home/home.html"*/'<ion-content>\n  <ion-title>\n    <h1>Save a Fill Up</h1>\n  </ion-title>\n\n  <p>\n    The person\'s name is {{ myPerson.firstName }} {{ myPerson.lastName }}\n  </p>\n\n  <ion-list>\n    <ion-item>\n      <ion-label fixed>First Name</ion-label>\n      <ion-input type="text" [(ngModel)]="firstName"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label fixed>Last Name</ion-label>\n      <ion-input type="text" [(ngModel)]="lastName"></ion-input>\n    </ion-item>\n  </ion-list>\n\n  <button ion-button block (click)="updatePerson(firstName, lastName)">\n    Update Name\n  </button>\n\n  <section>\n    <h4>\n      Average MPG:\n    </h4>\n    <h4>\n      Total Cost (30days): $\n    </h4>\n  </section>\n\n  <section>\n    <h4>\n    TODO -> Odometer\n    </h4>\n  </section>\n\n  <section>\n    <h4>\n    TODO -> price per gallon\n    </h4>\n  </section>\n\n  <section>\n    <h4>\n    TODO -> gallon pumped\n      </h4>\n  </section>\n\n  <section class="button-save-inactive">\n    <h1>\n      Save\n    </h1>\n  </section>\n\n  <div class="confirmation">\n    <h1>Saved <ion-icon name="checkmark"></ion-icon></h1>\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/home/mark/project/mv_app/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object])
     ], HomePage);
     return HomePage;
-    var HomePage_1;
+    var _a;
 }());
 
 //# sourceMappingURL=home.js.map
 
 /***/ }),
 
-/***/ 196:
+/***/ 199:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(222);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -89,20 +109,20 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 219:
+/***/ 222:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_android_full_screen__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_screen_orientation__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home_home__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_android_full_screen__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_screen_orientation__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home_home__ = __webpack_require__(198);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -154,18 +174,20 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 270:
+/***/ 273:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_android_full_screen__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_screen_orientation__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_android_full_screen__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_screen_orientation__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_firebase__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(198);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -182,12 +204,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var MyApp = /** @class */ (function () {
     function MyApp(platform, statusBar, splashScreen, androidFullScreen, screenOrientation) {
         var _this = this;
         this.androidFullScreen = androidFullScreen;
         this.screenOrientation = screenOrientation;
-        this.rootPage = __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */];
+        this.rootPage = __WEBPACK_IMPORTED_MODULE_7__pages_home_home__["a" /* HomePage */];
+        __WEBPACK_IMPORTED_MODULE_6_firebase___default.a.initializeApp({
+            apiKey: "AIzaSyDTMaov-WpmIZMXjhNmAzzZyvuav-s6FBI",
+            authDomain: "mvapp-40306.firebaseapp.com",
+            databaseURL: "https://mvapp-40306.firebaseio.com",
+            projectId: "mvapp-40306",
+            storageBucket: "mvapp-40306.appspot.com",
+            messagingSenderId: "641101366698"
+        });
         platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
@@ -213,5 +244,5 @@ var MyApp = /** @class */ (function () {
 
 /***/ })
 
-},[196]);
+},[199]);
 //# sourceMappingURL=main.js.map

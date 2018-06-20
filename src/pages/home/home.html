@@ -3,6 +3,26 @@
     <h1>Save a Fill Up</h1>
   </ion-title>
 
+  <p>
+    The person's name is {{ myPerson.firstName }} {{ myPerson.lastName }}
+  </p>
+
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>First Name</ion-label>
+      <ion-input type="text" [(ngModel)]="firstName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>Last Name</ion-label>
+      <ion-input type="text" [(ngModel)]="lastName"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button block (click)="updatePerson(firstName, lastName)">
+    Update Name
+  </button>
+
   <section>
     <h4>
       Average MPG:
