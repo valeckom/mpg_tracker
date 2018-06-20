@@ -8,30 +8,19 @@ import firebase from 'firebase';
 })
 export class HomePage {
 
-  public fill = {};
-
-  private fillRef: firebase.database.Reference = firebase.database()
-    .ref(`/fillUp/`);
+  public disp = { mpg: 'empty', totalCost: '' };
 
   constructor(public navCtrl: NavController) { }
 
-  init(odometer: number, priceGallon: number, totalGallon: number): void {
-    this.fillRef.set({
-      odometer,
-      priceGallon,
-      totalGallon
-    })
-  }
+  lastFill = {};
+  fill = {};
+  fillRef: firebase.database.Reference = firebase.database()
+    .ref(`/fillUp/`);
 
   ionViewDidLoad() {
     this.fillRef.on('value', fillSnapshot => {
-      this.fill = fillSnapshot.val()
-      if (this.fill == null) {
-        this.fill = {
-          odometer: 0,
-          priceGallon: 0,
-          totalGallon: 0
-        }
+      if (fillSnapshot.val() != null) {
+        this.lastFill = fillSnapshot.val();
       }
     });
   }

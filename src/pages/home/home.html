@@ -5,16 +5,15 @@
 
   <section>
     <h5>
-      Average MPG: {{ fill.odometer }}
+      Average MPG: {{ disp.mpg }}
     </h5>
     <h5>
-      Total Cost (30days): ${{ fill.priceGallon }}
+      Total Cost (30days): ${{ disp.totalCost }}
     </h5>
   </section>
 
   <section>
     <ion-list>
-
       <ion-item>
         <ion-label fixed>Odometer</ion-label>
         <ion-input type="number" [(ngModel)]="odometer"></ion-input>
@@ -29,11 +28,8 @@
         <ion-label fixed>Total Gallons</ion-label>
         <ion-input type="number" [(ngModel)]="totalGallon"></ion-input>
       </ion-item>
-
     </ion-list>
-  </section>
 
-  <section>
     <button ion-button block (click)="logFillUp(odometer, priceGallon, totalGallon)">
       Save
     </button>
