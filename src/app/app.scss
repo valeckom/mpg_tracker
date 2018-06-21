@@ -44,6 +44,14 @@ section {
   border-radius: 3px;
   box-shadow: 1px 3px 6px rgba(0,0,0,0.16);
 }
+
+.hide {
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}
 // B = A * 1.61
 // A = B / 1.61
 // .386, .621, 1, 1.61, 2.59

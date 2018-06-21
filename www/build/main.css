@@ -33386,6 +33386,14 @@ section {
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.16);
 }
 
+.hide {
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}
+
 page-home .button-save-inactive {
   text-align: center;
   color: #9bb5c5;
@@ -33414,7 +33422,6 @@ page-home .button-save-active {
 page-home .confirmation {
   text-align: center;
   margin: 2em;
-  visibility: hidden;
 }
 
 page-home ion-icon {

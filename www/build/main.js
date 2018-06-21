@@ -59,33 +59,70 @@ var HomePage = /** @class */ (function () {
     function HomePage(navCtrl) {
         this.navCtrl = navCtrl;
         this.disp = { mpg: 'empty', totalCost: '' };
-        this.lastFill = {};
-        this.fill = {};
-        this.fillRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database()
-            .ref("/fillUp/");
+        this.isFirstFill = true;
+        this.pullData = {};
+        this.mpg = 0;
+        this.fillDataRef = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database()
+            .ref("/fillData/");
     }
+    HomePage.prototype.mpgCalc = function (firstOdo, newOdo, gal) {
+        var mi = newOdo - firstOdo;
+        this.mpg = mi / gal;
+    };
+    HomePage.prototype.dispUpdate = function (newMpg, newCost) {
+        try {
+            this.disp = {
+                mpg: newMpg.toFixed(1).toString(),
+                totalCost: newCost.toFixed(2).toString()
+            };
+        }
+        catch (_a) { }
+    };
     HomePage.prototype.ionViewDidLoad = function () {
         var _this = this;
-        this.fillRef.on('value', function (fillSnapshot) {
+        this.fillDataRef.on('value', function (fillSnapshot) {
             if (fillSnapshot.val() != null) {
-                _this.lastFill = fillSnapshot.val();
+                _this.isFirstFill = false;
+                _this.pullData = fillSnapshot.val();
+                _this.dispUpdate(_this.pullData.milesPerGallon, _this.pullData.cost);
             }
         });
     };
-    HomePage.prototype.logFillUp = function (odometer, priceGallon, totalGallon) {
-        this.fillRef.update({
-            odometer: odometer,
-            priceGallon: priceGallon,
-            totalGallon: totalGallon
-        });
+    HomePage.prototype.logFillUp = function (odometer, cost, gallons) {
+        // Check for empty feilds
+        if (this.odometer != null &&
+            this.priceGallon != null &&
+            this.totalGallon != null) {
+            if (this.isFirstFill) {
+                this.fillDataRef.update({
+                    firstOdometer: odometer,
+                    cost: cost,
+                    gallons: gallons
+                });
+            }
+            else if (this.odometer > this.pullData.firstOdometer) {
+                gallons = +gallons + +this.pullData.gallons;
+                cost = (+cost * +gallons) + +this.pullData.cost;
+                this.mpgCalc(this.pullData.firstOdometer, odometer, gallons);
+                this.fillDataRef.update({
+                    cost: cost,
+                    gallons: gallons,
+                    milesPerGallon: this.mpg
+                });
+            }
+            this.odometer = null;
+            this.priceGallon = null;
+            this.totalGallon = null;
+        }
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/home/mark/project/mv_app/src/pages/home/home.html"*/'<ion-content>\n  <ion-title>\n    <h1>Save a Fill Up</h1>\n  </ion-title>\n\n  <section>\n    <h5>\n      Average MPG: {{ disp.mpg }}\n    </h5>\n    <h5>\n      Total Cost (30days): ${{ disp.totalCost }}\n    </h5>\n  </section>\n\n  <section>\n    <ion-list>\n      <ion-item>\n        <ion-label fixed>Odometer</ion-label>\n        <ion-input type="number" [(ngModel)]="odometer"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label fixed>$/gal</ion-label>\n        <ion-input type="number" [(ngModel)]="priceGallon"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label fixed>Total Gallons</ion-label>\n        <ion-input type="number" [(ngModel)]="totalGallon"></ion-input>\n      </ion-item>\n    </ion-list>\n\n    <button ion-button block (click)="logFillUp(odometer, priceGallon, totalGallon)">\n      Save\n    </button>\n  </section>\n\n  <div class="confirmation">\n    <h1>Saved <ion-icon name="checkmark"></ion-icon></h1>\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/home/mark/project/mv_app/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/home/mark/project/mv_app/src/pages/home/home.html"*/'<ion-content>\n  <ion-title>\n    <h1>Save a Fill Up</h1>\n  </ion-title>\n\n  <section>\n    <h5>\n      Average MPG: {{ disp.mpg }}\n    </h5>\n    <h5>\n      Total Cost: ${{ disp.totalCost }}\n    </h5>\n  </section>\n\n  <section>\n    <ion-list>\n      <ion-item>\n        <ion-label fixed>Odometer</ion-label>\n        <ion-input type="number" [(ngModel)]="odometer"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label fixed>$/gal</ion-label>\n        <ion-input type="number" [(ngModel)]="priceGallon"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label fixed>Total Gallons</ion-label>\n        <ion-input type="number" [(ngModel)]="totalGallon"></ion-input>\n      </ion-item>\n    </ion-list>\n\n    <button ion-button block (click)="logFillUp(odometer, priceGallon, totalGallon)">\n      Save\n    </button>\n  </section>\n\n  <div class="confirmation">\n    <h1>Saved <ion-icon name="checkmark"></ion-icon></h1>\n  </div>\n\n</ion-content>\n'/*ion-inline-end:"/home/mark/project/mv_app/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object])
     ], HomePage);
     return HomePage;
+    var _a;
 }());
 
 //# sourceMappingURL=home.js.map
