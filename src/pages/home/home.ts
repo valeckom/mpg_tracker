@@ -68,6 +68,7 @@ export class HomePage {
           milesPerGallon: this.mpg
         })
       }
+      document.getElementById("msg").style.visibility = "visible";
       this.odometer = null;
       this.priceGallon = null;
       this.totalGallon = null;

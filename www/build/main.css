@@ -33422,6 +33422,7 @@ page-home .button-save-active {
 page-home .confirmation {
   text-align: center;
   margin: 2em;
+  visibility: hidden;
 }
 
 page-home ion-icon {
