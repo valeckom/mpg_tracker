@@ -22,13 +22,17 @@ page-home {
     box-shadow: 1px 3px 6px rgba(0,0,0,0.16);
   }
 
-  .confirmation{
+  .msg{
     text-align: center;
     margin: 2em;
-    visibility: hidden;
+    display: none;
   }
 
   ion-icon{
     color: map-get($colors, green)
+  }
+
+  .help{
+    color: map-get($colors, primary)
   }
 }

@@ -33419,12 +33419,16 @@ page-home .button-save-active {
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.16);
 }
 
-page-home .confirmation {
+page-home .msg {
   text-align: center;
   margin: 2em;
-  visibility: hidden;
+  display: none;
 }
 
 page-home ion-icon {
   color: #62a588;
+}
+
+page-home .help {
+  color: #488aff;
 }

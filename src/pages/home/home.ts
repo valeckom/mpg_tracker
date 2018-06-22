@@ -8,7 +8,7 @@ import firebase from 'firebase';
 })
 export class HomePage {
 
-  public disp = { mpg: 'empty', totalCost: '' };
+  public disp = { mpg: '', totalCost: '' };
 
   constructor(public navCtrl: NavController) { }
 
@@ -34,12 +34,22 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+    document.getElementById("btnReset").style.display = "none";
+    document.getElementById("msgCalc").style.display = "none";
     this.fillDataRef.on('value', fillSnapshot => {
       if (fillSnapshot.val() != null) {
         this.isFirstFill = false;
         this.pullData = fillSnapshot.val();
         this.dispUpdate(this.pullData.milesPerGallon,
           this.pullData.cost)
+        if (this.pullData.milesPerGallon == null) {
+          document.getElementById("msgCalc").style.display = "none";
+          document.getElementById("msgFirstFill").style.display = "block";
+        }
+      }
+      else {
+        document.getElementById("msgCalc").style.display = "none";
+        document.getElementById("msgFirstFill").style.display = "block";
       }
     });
   }
@@ -67,11 +77,22 @@ export class HomePage {
           gallons,
           milesPerGallon: this.mpg
         })
+
+        document.getElementById("msgFirstFill").style.display = "none";
+        document.getElementById("msgCalc").style.display = "block";
       }
-      document.getElementById("msg").style.visibility = "visible";
-      this.odometer = null;
-      this.priceGallon = null;
-      this.totalGallon = null;
+      document.getElementById("msgSaved").style.display = "block";
+      document.getElementById("btnSave").style.display = "none";
+      document.getElementById("btnReset").style.display = "block";
     }
+  }
+
+  resetForm(): void {
+    this.odometer = null;
+    this.priceGallon = null;
+    this.totalGallon = null;
+    document.getElementById("msgSaved").style.display = "none";
+    document.getElementById("btnSave").style.display = "block";
+    document.getElementById("btnReset").style.display = "none";
   }
 }

@@ -3,7 +3,7 @@
     <h1>Save a Fill Up</h1>
   </ion-title>
 
-  <section>
+  <section id="msgCalc">
     <h5>
       Average MPG: {{ disp.mpg }}
     </h5>
@@ -30,13 +30,23 @@
       </ion-item>
     </ion-list>
 
-    <button ion-button block (click)="logFillUp(odometer, priceGallon, totalGallon)">
+    <button ion-button block id="btnSave" (click)="logFillUp(odometer, priceGallon, totalGallon)">
       Save
+    </button>
+    <button ion-button block id="btnReset" (click)="resetForm()">
+      Record Another Fill Up
     </button>
   </section>
 
-  <div class="confirmation" id="msg">
+  <div class="msg" id="msgSaved">
     <h1>Saved <ion-icon name="checkmark"></ion-icon></h1>
+  </div>
+
+  <div class="msg" id="msgFirstFill">
+    <h1><ion-icon name="information-circle" class="help"></ion-icon></h1>
+    <p>
+      Please record 2 fill ups to view MPG stats.
+    </p>
   </div>
 
 </ion-content>
